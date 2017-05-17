@@ -1,0 +1,52 @@
+*{margin: 0px; padding:0px;}
+/* --Bagian Halaman-- */
+body{
+	margin:0px;
+	background-attachment: fixed;
+	background-size:100%;
+	background-color: #63b8ff;
+}
+.mainlog{
+	background-size:100%;
+	padding:100px 0px;
+}
+ img { 
+  width: 90px;
+  height: 90px; 
+  float: center;
+}
+.login1 h3{
+	font-family:'Open Sans Condensed', sans-serif;
+	color: white;
+}
+
+.login{
+	margin:5px;
+    padding: 3px 18px;		
+	font-family:'Open Sans Condensed', sans-serif;
+	text-align:left;
+	color:white;
+    background-color:#63b8ff;
+    border-bottom:2px solid white;
+	border-top:0px;
+	border-left:0px;
+	border-right:0px;
+	font-size:20px;
+	cursor: pointer;
+}
+
+.tombol{
+	margin:5px;
+    padding: 3px 7px;
+    background-color:#63b8ff;
+    border:2px solid white;
+	border-radius:15px;
+	font-family:'Open Sans Condensed', sans-serif;
+	color:white;
+	font-size:20px;
+	cursor: pointer;
+}
+.login1 h4{
+	font-family:'Open Sans Condensed', sans-serif;
+	color: white;
+}
