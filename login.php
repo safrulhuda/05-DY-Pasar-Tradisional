@@ -3,7 +3,7 @@
 <head>
 	<title>Log In Account</title>
 	<meta charset="UTF-8">
-	<link href="st.css" rel="stylesheet">
+	<link href="sti.css" rel="stylesheet">
 </head>
 <body>
 	<div class="panel">
