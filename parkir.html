@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Parkiran</title>
+        <link href='//fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
+        <link href='//fonts.googleapis.com/css?family=Aladin' rel='stylesheet'>
+        <link href='//fonts.googleapis.com/css?family=Arima Madurai' rel='stylesheet'>
+        <link href='//fonts.googleapis.com/css?family=Merienda One' rel='stylesheet'>
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <script src="asset/jquery-3.2.1.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('#form-parkir-one, #form-parkir-two, #form-parkir-three').submit(function(){
+                    $.ajax({
+                        type:'POST',
+                        url:'add_data.php',
+                        data: $(this).serialize(),
+                        success: function(hasil){
+                            if(hasil!='no'){
+                                $('#print').html(hasil);
+                                printDiv('print');
+                                $('form input').val('');
+                            }else{
+                                alert(hasil);
+                            }
+                        }
+                    });
+                    return false; 
+                });
+            });
+            printDivCSS = new String ('<link href="myprintstyle.css" rel="stylesheet" type="text/css">')
+            function printDiv(divId) {
+                window.frames["print_frame"].document.body.innerHTML=printDivCSS + document.getElementById(divId).innerHTML;
+                window.frames["print_frame"].window.focus();
+                window.frames["print_frame"].window.print();
+            }
+        </script>
+    </head>
+    <script>
+        $(document).ready(function(){
+            $(".header ul li a").click(function(){
+                var target=$(this).attr('href');
+                $('#main > div').not(target).hide();
+                $(target).show();
+                
+                return false;
+            });
+            
+            $("#menu-one a").click(function(){     
+                $(this).parent().addClass('active-three');
+                $(this).parent().siblings().removeClass();
+                
+             });
+                
+            $("#menu-two a").click(function(){
+                $(this).parent().addClass('active-two');
+                $(this).parent().siblings().removeClass();
+                            
+            });
+                
+            $("#menu-three a").click(function(){
+                $(this).parent().addClass('active-one');
+                $(this).parent().siblings().removeClass();
+            });
+            
+            $(".input-data").mousedown(function(){
+				$(this).css("transform","scale(0.95)");
+            });
+            $(".input-data").mouseup(function(){
+				$(this).css("transform","scale(1)");
+            });
+            
+            $("#form-parkir input").blur(function(){
+                var value=$(this).val();
+                if(value==''){
+                    $(this).next().addClass('alert');
+                }else{
+                    $(this).next().removeClass('alert');
+                }     
+            });
+            
+        });
+    </script>
+    <style>
+        body{
+            margin: 0px;   
+        }
+        
+        .header{
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: block;
+            margin: 0px;
+            width: 100%;
+            background-color: #F7F6FB;
+        }
+        
+        .header-title{
+            font-family: 'Amaranth';
+            text-shadow: -1px -1px 4px rgba(147, 147, 147, 1);
+            font-size: 21px;
+            color: black;
+            padding-top: 10px;
+            float: left;
+        }
+        
+        .header-konten{
+            margin: 0px 200px;
+        }
+        
+        .header ul{
+            list-style: none;
+            overflow: hidden;
+            margin: 0px;
+            float: right;
+            
+        }
+        
+        .header li{
+            float: left;
+            
+        }
+        
+        .header li a{
+            display: block;
+        }
+        
+        #menu-one a i:hover{
+            background-color: #1BC3E8;
+            color: white;
+        }
+        
+        #menu-two a i:hover{
+            background-color: #F0CE21;
+            color: white;
+        }
+        
+        #menu-three a i:hover{
+            background-color: #AF32EE;
+            color: white;
+        }
+        
+        .header li a i{
+            padding: 15px 15px;
+            font-size: 20px;
+            color: black;
+        }
+        
+        .active-one{
+            background: #AF32EE;
+            color: white;
+        }
+        
+        .active-two{
+            background: #F0CE21;
+            color: white;
+        }
+        
+        .active-three{
+            background: #1BC3E8;
+            color: white;
+        }
+        
+        .konten-two, .konten-three{
+            display: none;
+        }
+                
+        .konten-header-one{
+            background: #AF32EE;
+            height : 400px;
+            width: 100%;
+        }
+        
+        .konten-header-two{
+            height : 400px;
+            width: 100%;
+            background-color: #F0CE21;
+        }
+        
+        .konten-header-three{
+            height : 400px;
+            width: 100%;
+            background-color: #1BC3E8;
+        }
+
+        .main{
+            margin-top: 50px; 
+        }
+        
+        .konten-text{
+            text-align: center;
+            color: white;
+        }
+        
+        .text-one{
+            font-size: 20px;
+            font-family: 'Arima Madurai';
+            padding: 20px 0px;
+        }
+        
+        .text-one span{
+            font-family: 'Aladin';
+        }
+        
+        .input-data{
+            -webkit-box-shadow: 1px 0 5px 0.1px rgba(1,2,12,12);
+            box-shadow: 1px 0 5px 0.1px rgba(1,2,12,12);
+            font-size: 16px;
+            background-color: #7A4AA2;
+            padding: 10px;
+            border: none;
+            color: white;
+        }
+        
+        .form-one{
+            margin: 0 auto;
+            width: 50%;
+        }
+        
+        .form-item{
+            font-family: 'calibri';
+            font-size: 22px;
+            margin-bottom: 25px;
+            width: 50%;
+            float: left;
+            display: block;
+            border: px solid;
+        }
+        
+        .form-item input{
+            border: 1px solid white;
+            padding: 6px;
+            width: 90%;
+            font-size: 18px;
+        }
+        
+        .alamat{
+            clear: both;
+            float: none;
+            width: 100%;
+            font-family:'calibri';
+            font-size:22px;
+        }
+        
+        .background-form{
+            margin-top: -21px;
+            background-color: #EAEAF1;
+            padding-bottom: 10px;
+        }
+        
+        .footer{
+            color: white;
+            padding: 18px;
+            background-color: #4F4E56;
+            text-align: center;
+        }
+        
+        .bar{
+            position: relative;
+            display: block;
+        }
+        
+        .bar:before,
+        .bar:after{
+            content:'';
+            height: 3px;
+            width: 0;
+            bottom: 0px;
+            position: absolute;
+            background: #FABA1C;
+            transition: 0.2s ease all;
+        }
+        
+        .bar:before{
+            left: 50%;   
+        }
+        
+        .alert:before{
+            width: 43.8%;
+        }
+        
+        .alert:after{
+            width: 50%;
+        }
+    
+        .bar:after{
+            right: 50%;
+        }
+    </style>
+    <body>
+        <div class="header">
+            <div class="header-konten">
+                <div class="header-title">
+                    <i class="fa fa-road" style="font-size:30px;"></i> Parkiran Pasar Tradisional Setui
+                </div>
+                <ul>
+                    <li id="menu-one">
+                        <a href="#konten-three" ><i class="fa fa-motorcycle"></i></a>
+                    </li>
+                    <li id="menu-two">
+                        <a href="#konten-two" ><i class="fa fa-car"></i></a>
+                    </li>
+                    <li id="menu-three" class="active-one">
+                        <a href="#konten-one"><i class="fa fa-users"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main" id="main">
+            <div class="konten-one" id="konten-one">
+                <div class="konten-header-one">
+                    <div class="konten-text">
+                        <div class="text-one">
+                            <h1>BEBAS PARKIR KENDARAAN</h1>
+                            <span>HomePage parkir kendaraan bermotor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="background-form">
+                    <div class="form-one" id="form-login">
+                        <form id="form-parkir-one" method="post">
+                            <h1 style="font-family:'Merienda One'; padding-top:20px;">Form Daftar</h1>
+                            <div class="form-item">
+                                <label for="id_pembeli">Id pembeli</label><br>
+                                <input type="text" id="id_pembeli" placeholder="id_pembeli" name="id_pembeli" required/>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="form-item">
+                                <label for="password">Password</label><br>
+                                <input type="password" id="password" placeholder="password" name="password" required/>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="form-item">
+                                <label for="nama">Nama</label><br>
+                                <input type="text" id="nama" placeholder="nama" name="nama" required/>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="form-item">
+                                <label for="no_hp">No.hp</label><br>
+                                <input type="text" id="no_hp" placeholder="no_hp" name="no_hp" required/>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="form-item">
+                                <label for="no_hp">Plat Kendaraan</label><br>
+                                <input type="text" id="plat_kendaraan" name="plat_kendaraan"  value="Tidak ada" readonly/>
+                            </div>
+                            <div class="form-item">
+                                <label for="jenis_kendaraan">Jenis Kendaraan</label><br>
+                                <input name="jenis_kendaraan" value="Tidak Ada" readonly/>
+                            </div>
+                            <div class="form-item">
+                                <label for="tarif">Tarif</label><br>
+                                <input name="tarif" value=0 readonly/>
+                            </div>
+                            <div class="alamat">
+                                <label for="alamat">Alamat</label><br>
+                                <textarea style="width:100%; font-family:'calibri'; font-size:22px; border:1px solid #AF32EE;" rows="5" id="alamat" placeholder="alamat" name="alamat" required></textarea>
+                            </div>
+                            <div class="form-send">
+                                <button class="input-data" type="submit"><i class="fa fa-paper-plane"></i> Konfirmasi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="konten-two" id="konten-two">
+                <div class="konten-header-two">
+                    <div class="konten-text">
+                        <div class="text-one">
+                            <h1>PARKIR KENDARAAN BERMOBIL</h1>
+                            <span>HomePage parkir kendaraan bermotor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="background-form">
+                    <div class="form-one" id="form-login">
+                        <form id="form-parkir-two" method="post">
+                            <h1 style="font-family:'Merienda One'; padding-top:20px;">Form Daftar</h1>
+                            <div class="form-item">
+                                <label for="id_pembeli">Id pembeli</label><br>
+                                <input type="text" id="id_pembeli" placeholder="id_pembeli" name="id_pembeli" required/>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="form-item">
+                                <label for="password">Password</label><br>
+                                <input type="password" id="password" placeholder="password" name="password" required/>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="form-item">
+                                <label for="nama">Nama</label><br>
+                                <input type="text" id="nama" placeholder="nama" name="nama" required/>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="form-item">
+                                <label for="no_hp">No.hp</label><br>
+                                <input type="text" id="no_hp" placeholder="no_hp" name="no_hp" required/>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="form-item">
+                                <label for="no_hp">Plat Kendaraan</label><br>
+                                <input type="text" id="plat_kendaraan" name="plat_kendaraan"  required/>
+                            </div>
+                            <div class="form-item">
+                                <label for="jenis_kendaraan">Jenis Kendaraan</label><br>
+                                <input name="jenis_kendaraan" value="mobil" readonly/>
+                            </div>
+                            <div class="form-item">
+                                <label for="tarif">Tarif</label><br>
+                                <input name="tarif" value=2000 readonly/>
+                            </div>
+                            <div class="alamat">
+                                <label for="alamat">Alamat</label><br>
+                                <textarea style="width:100%; font-family:'calibri'; font-size:22px; border:1px solid #AF32EE;" rows="5" id="alamat" placeholder="alamat" name="alamat" required></textarea>
+                            </div>
+                            <div class="form-send">
+                                <button class="input-data" type="submit"><i class="fa fa-paper-plane"></i> Konfirmasi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="konten-three" id="konten-three">
+                <div class="konten-header-three">
+                    <div class="konten-text">
+                        <div class="text-one">
+                            <h1>PARKIR KENDARAAN BERMOBIL</h1>
+                            <span>HomePage parkir kendaraan bermotor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="background-form">
+                    <div class="form-one" id="form-login">
+                        <form id="form-parkir-three" method="post">
+                            <h1 style="font-family:'Merienda One'; padding-top:20px;">Form Daftar</h1>
+                            <div class="form-item">
+                                <label for="id_pembeli">Id pembeli</label><br>
+                                <input type="text" id="id_pembeli" placeholder="id_pembeli" name="id_pembeli" required/>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="form-item">
+                                <label for="password">Password</label><br>
+                                <input type="password" id="password" placeholder="password" name="password" required/>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="form-item">
+                                <label for="nama">Nama</label><br>
+                                <input type="text" id="nama" placeholder="nama" name="nama" required/>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="form-item">
+                                <label for="no_hp">No.hp</label><br>
+                                <input type="text" id="no_hp" placeholder="no_hp" name="no_hp" required/>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="form-item">
+                                <label for="no_hp">Plat Kendaraan</label><br>
+                                <input type="text" id="plat_kendaraan" name="plat_kendaraan"  required/>
+                            </div>
+                            <div class="form-item">
+                                <label for="jenis_kendaraan">Jenis Kendaraan</label><br>
+                                <input name="jenis_kendaraan" value="motor" readonly/>
+                            </div>
+                            <div class="form-item">
+                                <label for="tarif">Tarif</label><br>
+                                <input name="tarif" value=1000 readonly/>
+                            </div>
+                            <div class="alamat">
+                                <label for="alamat">Alamat</label><br>
+                                <textarea style="width:100%; font-family:'calibri'; font-size:22px; border:1px solid #AF32EE;" rows="5" id="alamat" placeholder="alamat" name="alamat" required></textarea>
+                            </div>
+                            <div class="form-send">
+                                <button class="input-data" type="submit"><i class="fa fa-paper-plane"></i> Konfirmasi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            2017 &copy; all right reserved
+        </div>
+        <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank" style="display:none;"></iframe>
+        <div id="print" style="display:none;"></div> 
+    </body>
+</html>
