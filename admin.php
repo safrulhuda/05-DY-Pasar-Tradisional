@@ -445,7 +445,11 @@
                 <div class="form-title-three">
                     <span><strong><i class="fa fa-clipboard"></i> Form dagangan</strong></span>
                 </div>
+<<<<<<< HEAD
                 tabel pemesanan
+=======
+                    <?php include'view_order.php'; ?>
+>>>>>>> IraSartika
             </div>
             </div>
         </div>
