@@ -1,16 +1,25 @@
 <?php
     session_start();
+    require_once('koneksi.php');
     
     if(!isset($_SESSION['id_penjual'])){
         header('location:login.php');   
     }
     $id_penjual =$_SESSION['id_penjual'];
+
+    $sql="SELECT nama FROM penjual WHERE id_penjual='$id_penjual'";
+    $result=$conn->query($sql);
+    
+    $row=mysqli_fetch_assoc($result);
+
+    $nama =$row['nama'];
 ?>
 <!DOCTYPE html>
 
 <html>
     <head>
         <title>Pedagang</title>
+        <link href='https://fonts.googleapis.com/css?family=Josefin Sans' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Capriola' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Chivo' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Josefin Sans' rel="stylesheet">
@@ -22,6 +31,8 @@
         $(document).ready(function(){
             $(".main ul li a").click(function(){
                 var target=$(this).attr('href');
+                $(this).css('color', 'white');
+                $(this).parent().siblings().find('a').css('color', 'black');
                 $('#main > div').not(target).hide();
                 $(target).show();
                 
@@ -114,10 +125,27 @@
         }
         
         function load(){
-        var target = document.getElementById("menu-barang");
-        $(target).load("view_menu.php");
-    }
-        setInterval(load, 2000);
+            var target = document.getElementById("menu-barang");
+            $(target).load("view_menu.php");
+        }
+        setInterval(load, 1000);
+        
+        function finishOrder(id){
+            $.post('finish_order.php', {id:id}, function(result){
+                if(result=="yes"){
+                    alert("berhasil");
+                }else{
+                    alert(result);
+                }
+            });
+        }
+        
+         function loadOrder(){
+            var target = document.getElementById("view-order");
+            $(target).load("view_order.php");
+        }
+        
+        setInterval(loadOrder, 1000);
     </script>
     <style>
         
@@ -142,7 +170,7 @@
             font-family: 'Capriola';
             font-size: 18px;
             color: white;
-            padding: 14.5px 94.5px;
+            padding: 1%;
             background-color: #1AC1D5;
             float: left;
         }
@@ -174,6 +202,7 @@
         }
         
         .main{
+            overflow: hidden;
             margin-top: 50px;
             width: 100%;
             height: 100%;
@@ -336,6 +365,14 @@
             background-color: #1C9849;
         }
         
+        .footer{
+            font-family: 'Josefin Sans';
+            color: white;
+            padding: 18px;
+            background-color: #4F4E56;
+            text-align: center;
+        }
+        
         table{
             border-collapse:collapse;
         }
@@ -368,7 +405,7 @@
                 <div class="home">
                     <img src="image/user.png">
                     <div class="home-profil">
-                        nama+mu
+                        <?php echo $nama; ?>
                     </div>
                 </div>
                 <div>
@@ -443,15 +480,14 @@
             </div>
             <div id="pemesanan" class="pemesanan">
                 <div class="form-title-three">
-                    <span><strong><i class="fa fa-clipboard"></i> Form dagangan</strong></span>
+                    <span><strong><i class="fa fa-clipboard"></i> List Pemesanan</strong></span>
                 </div>
-<<<<<<< HEAD
-                tabel pemesanan
-=======
                     <?php include'view_order.php'; ?>
->>>>>>> IraSartika
             </div>
             </div>
         </div>
+        <div class="footer">
+                2017 &copy; all right reserved || RPL-DY-KELOMPOK 5
+         </div>
     </body>
 </html>

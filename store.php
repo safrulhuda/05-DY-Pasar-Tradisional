@@ -14,6 +14,7 @@
         <link href="font-awesome/css/font-awesome.min.css" rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Capriola' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Fugaz One' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Josefin Sans' rel='stylesheet'>
         <script src="asset/jquery-3.2.1.min.js"></script>
     </head>
     <script>
@@ -47,18 +48,23 @@
             
             $('#search').click(function(){
                 var search =$('#search-box').val();
-                
+                var target ='#search-view';
                 $.get('search.php',{search:search}, function(result){
-                    $('#main-menu').html(result);
+                    $('#search-view').html(result);
+                    $('#main-menu > div').not(target).hide();
+                    $(target).fadeIn(800);
                 });
             });
-
         });
+        
+        function delRow(id){
+            $("#"+id).parent().parent().parent().remove();
+        }
         
         function set(id){
             $.get( "clickmenu.php", { id: id} )
                 .done(function(data) {
-                    $(data).insertBefore(".push");
+                    $('#pilihan-menu tr:last').after(data);
             });
         }
     </script>
@@ -192,6 +198,7 @@
         }
 
         .footer{
+            font-family: 'Josefin Sans';
             background-color: #DCD9D9;
             text-align: center;
             width: 100%px;
@@ -206,6 +213,7 @@
         }
         
         .keranjang{
+            padding: 15px;
             position: absolute;
             z-index: 1;
             right: 0px;
@@ -221,6 +229,19 @@
         
         .main-fitur{
             display: none;
+        }
+        
+        table{
+            border-collapse: collapse;
+            width: 100%
+        }
+        
+        table, th, td{
+            border: 1px solid gray;
+        }
+        
+        table td input{
+            border: none;
         }
         
         .aktif{
@@ -248,8 +269,7 @@
                 $('#total-harga').val(total);
                 
             }
-            function view(){
-                
+            function view(){  
                 var target = $('.coba').attr('id');
                 $('#main-menu > div').not(target).hide();
             }
@@ -304,9 +324,16 @@
             <div class="keranjang" id="keranjang">
             <div><a id="keranjang-close" href="#"><i class="fa fa-close" style="float:right;"></i></a></div><br>
             <form action="" method="post">
-                <span class="push">
-                    <button id="submit-order" onclick="view()" name="submit-order" type="submit">Submit</button>
-                </span>
+                <table id="pilihan-menu">
+                    <tr>
+                        <th>Nama</th>
+                        <th>Toko</th>
+                        <th>Harga</th>
+                        <th>Tools</th>
+                    </tr>
+                    <span class="push"></span>
+                </table>
+                <button id="submit-order" onclick="view()" name="submit-order" type="submit">Submit</button>
             </form>
             </div>
             <div class="header-wrap">
@@ -340,10 +367,11 @@
                     <?php include'load_lainnya.php';?>
                 </div>
                 <?php include'show_pilih.php';?>
+                <div id="search-view"></div>
             </div>
         </div>
         <div class="footer">
-            2017 &copy; all right reserved
+            2017 &copy; all right reserved || RPL-DY-KELOMPOK 5
         </div>
         <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank" style="display:none;"></iframe>
         <div id="print" style="display:none;"></div>

@@ -11,13 +11,14 @@
                                 <tr>
                                     <th>Id Barang</th>
                                     <th>Nama Barang</th>
+                                    <th>Stock</th>
                                     <th>Harga</th>
                                     <th>Jumlah</th>
                                     <th>Jumlah Harga</th>
                                 </tr>';
 
             for($i=0; $i<count($nama); $i++){
-                $sql="SELECT id_barang, harga FROM barang where nama='$nama[$i]'";
+                $sql="SELECT id_barang, harga, stock FROM barang where nama='$nama[$i]'";
                 $res=$conn->query($sql);
                 $row=mysqli_fetch_assoc($res);
                 $harga=$row['harga'];
@@ -25,19 +26,22 @@
                 echo'<tr>
                         <td><input type="text" name="id_barang[]" value="'.$row['id_barang'].'" readonly /></td>
                         <td><input type="text" name="nama_order[]" value="'.$nama[$i].'" readonly /></td>
+                        <td><input type="number" name="nama_order[]" value="'.$row['stock'].'" readonly /></td>
                         <td><input type="text" name="harga" value="'.$row['harga'].'" readonly/></td>
-                        <td><input id="'.$nama[$i].'" type="number" onkeyup="hitung(this.id)" name="jumlah_order[]"  value=1 /></td>
+                        <td><input id="'.'id'.$row['id_barang'].'" type="number" onkeyup="hitung(this.id)" name="jumlah_order[]"  value=1 /></td>
                         <td><input type="number" name="jml[]" value="'.$harga.'" readonly /></td>
                      </tr>';
             }
             echo'   
                 <tr>
-                    <td colspan="5" align="right"><input type="text" name="total" id="total-harga" value=0 readonly/></td>
+                    <td colspan="5" align="center"><strong>Total</strong></td>
+                    <td><input type="text" name="total" id="total-harga" value=0 readonly/></td>
                 </tr>
             </table>
                 <button type="submit" >SEND ORDER</button>
                 </form>
                     </div>';
+            echo'<script>sum();</script>';
         }
     }
 ?>

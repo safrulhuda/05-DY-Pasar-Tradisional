@@ -1,7 +1,12 @@
-<?php 
+<?php
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    
 	include 'koneksi.php';
 	
-	$sql="SELECT * FROM barang";
+    $id_penjual =$_SESSION['id_penjual'];
+	$sql="SELECT * FROM barang WHERE id_penjual='$id_penjual'";
 	
 	$result = $conn->query($sql);
 	echo'<table id="table-menu">

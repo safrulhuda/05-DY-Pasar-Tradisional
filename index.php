@@ -13,6 +13,7 @@
         <title>HomePage</title>
         <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href='https://fonts.googleapis.com/css?family=Aladin' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Josefin Sans' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
         <link href='//fonts.googleapis.com/css?family=Lemon' rel='stylesheet'>
         <link href='//fonts.googleapis.com/css?family=Londrina Solid' rel='stylesheet'>
@@ -89,7 +90,7 @@
             text-align: center;
             float: left;
             margin: 10px 10px;
-            background-color: rgba(217, 225, 229, 0.4);
+            background-color: rgba(241, 249, 250, 0.7);
         }
         
         .menu-ul li a{
@@ -195,6 +196,7 @@
         }
         
         .footer{
+            font-family: 'Josefin Sans';
             margin-top: 5px;
             height: 30px;
             background-color: #DEE4EC;
@@ -273,7 +275,7 @@
             </div>
             <br style="clear: both;">
             <div class="footer">
-                2017 &copy; all right reserved
+                2017 &copy; all right reserved || RPL-DY-KELOMPOK 5
             </div>
         </div>
     </body>

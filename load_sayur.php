@@ -1,6 +1,6 @@
 <?php
 	include'koneksi.php';
-	$sql="SELECT id_barang, a.nama, harga, toko, stock, keterangan, gambar FROM barang a JOIN penjual b ON a.id_penjual=b.id_penjual AND jenis='sayur-sayuran'";
+	$sql="SELECT id_barang, a.nama, harga, toko, stock, keterangan, gambar FROM barang a JOIN penjual b ON a.id_penjual=b.id_penjual AND jenis='sayur-sayuran' WHERE stock>0";
 	$result=$conn->query($sql);
 	
 	while($row=mysqli_fetch_assoc($result)){
